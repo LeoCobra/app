@@ -4,8 +4,10 @@ import com.cobra.app.commands.ProductForm;
 import com.cobra.app.domain.Product;
 import org.bson.types.ObjectId;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 import org.thymeleaf.util.StringUtils;
 
+@Component
 public class ProductFormToProduct implements Converter<ProductForm, Product> {
 
 
