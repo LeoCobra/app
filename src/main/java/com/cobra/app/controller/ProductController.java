@@ -15,6 +15,7 @@ public class ProductController {
 
     private ProductToProductForm productToProductForm;
 
+
     @Autowired
     public void setProductToProductForm(ProductToProductForm productToProductForm) {
         this.productToProductForm = productToProductForm;
@@ -29,5 +30,11 @@ public class ProductController {
     public String newProduct(Model model){
         model.addAttribute("productForm", new ProductForm());
         return "product/productform";
+    }
+
+    @RequestMapping({"/product/list", "/product"})
+    public String listProducts(Model model){
+        model.addAttribute("products", productService.listAll());
+        return "product/list";
     }
 }
