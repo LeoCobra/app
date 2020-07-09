@@ -1,5 +1,6 @@
 package com.cobra.app.service;
 
+import com.cobra.app.commands.ProductForm;
 import com.cobra.app.conveters.ProductFormToProduct;
 import com.cobra.app.domain.Product;
 import com.cobra.app.repository.ProductRepository;
@@ -32,6 +33,14 @@ public class ProductServiceImpl implements ProductService {
         List<Product> products = new ArrayList<>();
         productRepository.findAll().forEach(products::add); //fun with Java 8
         return products;
+    }
+
+    @Override
+    public Product saveOrUpdateProductForm(ProductForm productForm) {
+        Product savedProduct = saveOrUpdate(productFormToProduct.convert(productForm));
+
+        System.out.println("Saved Product Id: " + savedProduct.getId());
+        return savedProduct;
     }
 
 

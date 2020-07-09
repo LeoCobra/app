@@ -2,11 +2,16 @@ package com.cobra.app.controller;
 
 import com.cobra.app.commands.ProductForm;
 import com.cobra.app.conveters.ProductToProductForm;
+import com.cobra.app.domain.Product;
 import com.cobra.app.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.validation.Valid;
 
 @Controller
 public class ProductController {
@@ -36,5 +41,17 @@ public class ProductController {
     public String listProducts(Model model){
         model.addAttribute("products", productService.listAll());
         return "product/list";
+    }
+
+    @RequestMapping(value = "/product", method = RequestMethod.POST)
+    public String saveOrUpdateProduct(@Valid ProductForm productForm, BindingResult bindingResult){
+
+        if(bindingResult.hasErrors()){
+            return "product/productform";
+        }
+
+        Product savedProduct = productService.saveOrUpdateProductForm(productForm);
+
+        return "redirect:/product/show/" + savedProduct.getId();
     }
 }
