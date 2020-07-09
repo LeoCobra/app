@@ -13,4 +13,5 @@ public interface ProductService {
 
     Product saveOrUpdateProductForm(ProductForm productForm);
 
+    Product getById(String id);
 }

@@ -29,6 +29,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Product getById(String id) {
+        return productRepository.findById(id).orElse(null);
+    }
+
+
+    @Override
     public List<Product> listAll() {
         List<Product> products = new ArrayList<>();
         productRepository.findAll().forEach(products::add); //fun with Java 8
